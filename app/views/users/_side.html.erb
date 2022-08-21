@@ -1,27 +1,45 @@
+<p id="notice"></p>
+<main>
+<div class="col-md-3" >
+ <h2>User info</h2>
+ <%= image_tag user.get_profile_image(100,100) %>
+ <table class="table">
+  <tbody>
+   <tr>
+    <th>name</th>
+    <th><%= user.name %></th>
+   </tr>
+   <tr>
+    <th>introduction</th>
+    <th><%= user.introduction %></th>
+   </tr>
+  </tbody>
+ </table>
 
-    <div class="col-md-3" >
-     <h2>User info</h2>
-      <%= image_tag user.get_profile_image(100,100) %>
-      <table class="table">
-       <tbody>
-        <tr></tr>
-       </tbody>
-      <tr><%= user.name %></tr>
-      <tr><%= user.introduction %></tr>
-      </table>
+ <div class="row">
+  <% if user == current_user %>
+  <button type="button" class="btn btn-secondary btn-lg btn-outline-secondary btn-block">
+   <%= link_to edit_user_path(@user) do %>
+   <i class="fas fa-user-cog"></i>
+   <% end %>
+  </button>
+  <% else %>
+  <button type="button" class="btn btn-secondary btn-lg">
+   <%= link_to edit_user_path(@user) do %>
+   <i class="fas fa-user-cog"></i>
+   <% end %>
+  </button>
+  <% end %>
+ </div>
 
-     <% if user == current_user %>
-     <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
-
-<% end %>
-<h1>New Book</h1>
+<h1>New book</h1>
 <% if book.errors.any? %>
  <%= book.errors.count %>errors occurred
-   <ul>
-    <% book.errors.full_message.each do |message| %>
+  <ul>
+   <% book.errors.full_messages.each do |message| %>
     <li><%=message %></li>
-    <% end %>
-   </ul>
+   <% end %>
+  </ul>
 <% end %>
 
 
@@ -32,5 +50,7 @@
       <%= f.text_area :body %><br>
     <%= f.submit 'Create Book' %>
 <% end %>
-    </div>
-  </body>
+
+</div>
+</body>
+</main>
